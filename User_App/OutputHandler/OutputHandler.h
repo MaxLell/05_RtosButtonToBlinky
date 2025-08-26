@@ -8,7 +8,7 @@
 #ifndef OUTPUTHANDLER_H
 #define OUTPUTHANDLER_H
 
-#include "../DataModel/DataModel.h"
+#include "../../Middlewares/DataModel/src/DataModel.h"
 
 void OutputHandler_Init( DataModel_t *const inout_ptButtonEvent );
 

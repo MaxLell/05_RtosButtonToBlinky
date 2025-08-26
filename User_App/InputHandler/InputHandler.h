@@ -8,7 +8,7 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
 
-#include "../DataModel/DataModel.h"
+#include "../../Middlewares/DataModel/src/DataModel.h"
 
 void InputHandler_Init( DataModel_t *const inout_ptButtonEvent );
 

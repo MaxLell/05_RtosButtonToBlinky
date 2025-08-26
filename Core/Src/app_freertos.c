@@ -19,15 +19,15 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "task.h"
-#include "main.h"
 #include "cmsis_os.h"
+#include "main.h"
+#include "task.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "../../Middlewares/DataModel/src/DataModel.h"
 #include "../../User_App/InputHandler/InputHandler.h"
 #include "../../User_App/OutputHandler/OutputHandler.h"
-#include "../../User_App/DataModel/DataModel.h"
 
 /* USER CODE END Includes */
 
@@ -49,48 +49,48 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
-static DataModel_t g_tButtonEvent = {0};
+static DataModel_t g_tButtonEvent = { 0 };
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
+osThreadId_t         defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
     .name = "defaultTask",
     .priority = (osPriority_t)osPriorityNormal,
-    .stack_size = 128 * 4};
+    .stack_size = 128 * 4 };
 /* Definitions for Input_Handler */
-osThreadId_t Input_HandlerHandle;
+osThreadId_t         Input_HandlerHandle;
 const osThreadAttr_t Input_Handler_attributes = {
     .name = "Input_Handler",
     .priority = (osPriority_t)osPriorityNormal,
-    .stack_size = 128 * 4};
+    .stack_size = 128 * 4 };
 /* Definitions for Output_Handler */
-osThreadId_t Output_HandlerHandle;
+osThreadId_t         Output_HandlerHandle;
 const osThreadAttr_t Output_Handler_attributes = {
     .name = "Output_Handler",
     .priority = (osPriority_t)osPriorityNormal,
-    .stack_size = 128 * 4};
+    .stack_size = 128 * 4 };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void *argument);
-void InputHandler(void *argument);
-void OutputHandler(void *argument);
+void StartDefaultTask( void *argument );
+void InputHandler( void *argument );
+void OutputHandler( void *argument );
 
-void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+void MX_FREERTOS_Init( void ); /* (MISRA C 2004 rule 8.1) */
 
 /**
  * @brief  FreeRTOS initialization
  * @param  None
  * @retval None
  */
-void MX_FREERTOS_Init(void)
+void MX_FREERTOS_Init( void )
 {
     /* USER CODE BEGIN Init */
-    DataModel_Init(&g_tButtonEvent);
+    DataModel_Init( &g_tButtonEvent );
 
     /* USER CODE END Init */
 
@@ -112,16 +112,16 @@ void MX_FREERTOS_Init(void)
 
     /* Create the thread(s) */
     /* creation of defaultTask */
-    defaultTaskHandle =
-        osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+    defaultTaskHandle = osThreadNew( StartDefaultTask, NULL,
+                                     &defaultTask_attributes );
 
     /* creation of Input_Handler */
-    Input_HandlerHandle =
-        osThreadNew(InputHandler, NULL, &Input_Handler_attributes);
+    Input_HandlerHandle = osThreadNew( InputHandler, NULL,
+                                       &Input_Handler_attributes );
 
     /* creation of Output_Handler */
-    Output_HandlerHandle =
-        osThreadNew(OutputHandler, NULL, &Output_Handler_attributes);
+    Output_HandlerHandle = osThreadNew( OutputHandler, NULL,
+                                        &Output_Handler_attributes );
 
     /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
@@ -139,13 +139,13 @@ void MX_FREERTOS_Init(void)
  * @retval None
  */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+void StartDefaultTask( void *argument )
 {
     /* USER CODE BEGIN StartDefaultTask */
     /* Infinite loop */
-    for (;;)
+    for( ;; )
     {
-        osDelay(1);
+        osDelay( 1 );
     }
     /* USER CODE END StartDefaultTask */
 }
@@ -157,16 +157,16 @@ void StartDefaultTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_InputHandler */
-void InputHandler(void *argument)
+void InputHandler( void *argument )
 {
     /* USER CODE BEGIN InputHandler */
     /* Initialize the Input Handler */
-    InputHandler_Init(&g_tButtonEvent);
+    InputHandler_Init( &g_tButtonEvent );
     /* Infinite loop */
-    for (;;)
+    for( ;; )
     {
         InputHandler_Loop();
-        osDelay(1);
+        osDelay( 1 );
     }
     /* USER CODE END InputHandler */
 }
@@ -178,15 +178,15 @@ void InputHandler(void *argument)
  * @retval None
  */
 /* USER CODE END Header_OutputHandler */
-void OutputHandler(void *argument)
+void OutputHandler( void *argument )
 {
     /* USER CODE BEGIN OutputHandler */
-    OutputHandler_Init(&g_tButtonEvent);
+    OutputHandler_Init( &g_tButtonEvent );
     /* Infinite loop */
-    for (;;)
+    for( ;; )
     {
         OutputHandler_Loop();
-        osDelay(1);
+        osDelay( 1 );
     }
     /* USER CODE END OutputHandler */
 }

@@ -1,0 +1,3 @@
+[submodule "Middlewares/DataModel"]
+	path = Middlewares/DataModel
+	url = https://github.com/MaxLell/DataModel.git
